@@ -2,3 +2,25 @@
 
 set -o errexit
 set -o pipefail
+
+start_server() {
+  artifact=cookery2.jar
+  port=4003
+
+  if lsof -i -P -n | grep LISTEN | grep :$port > /dev/null ; then
+    echo "Port[${port}] is busy. Server won't be able to start"
+    exit 1
+  fi
+
+  nohup java -jar ./build/libs/${artifact} >/dev/null 2>&1 &
+
+  # Wait for server to answer requests
+  until curl --output /dev/null --silent --fail http://localhost:$port/actuator/health; do
+    printf '.'
+    sleep 3
+  done
+}
+
+stop_server() {
+  pkill -f 'java -jar'
+}

@@ -39,6 +39,15 @@ goal_test-container() {
   bundle exec rspec spec
 }
 
+goal_test-pact() {
+  trap "stop_server" EXIT
+
+  goal_build
+  start_server
+
+  ./gradlew pactVerify
+}
+
 goal_help() {
   echo "usage: $0 <goal>
 
@@ -55,7 +64,7 @@ goal_help() {
 
     test-unit                -- Run unit tests
     test-container           -- Run container tests
-    test-e2e                 -- Run newman tests
+    test-pact                -- Verify pact
     "
   exit 1
 }

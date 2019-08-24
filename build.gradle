@@ -21,6 +21,9 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath "com.github.ben-manes:gradle-versions-plugin:0.21.0"
 
+        // Verify pacts from gradle
+        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.8'
+
         // Linter
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${detektVersion}"
     }
@@ -31,6 +34,7 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 
 group = 'com.hceris'
@@ -87,6 +91,18 @@ test {
     dependsOn 'cleanTest'
     testLogging {
         events "passed", "skipped", "failed"
+    }
+}
+
+pact {
+    serviceProviders {
+        api {
+            port = 4003
+            def pactFile = file('../ui/pacts/sar-ui-entrypoint-api.json')
+            hasPactWith('cookery2-frontend') {
+                pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
+            }
+        }
     }
 }
 
