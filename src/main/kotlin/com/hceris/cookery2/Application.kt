@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class Cookery2Application
+class Application
 
 fun main(args: Array<String>) {
-	runApplication<Cookery2Application>(*args)
+	runApplication<Application>(*args)
 }
