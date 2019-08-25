@@ -6,6 +6,7 @@ buildscript {
         swaggerVersion = '2.9.2'
         exposedVersion = '0.17.1'
         junitVersion = '5.5.1'
+        striktVersion = '0.21.1'
         detektVersion = '1.0.1'
     }
     repositories {
@@ -52,15 +53,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-	  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.data:spring-data-commons'
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}")
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
+
+    implementation "org.jetbrains.exposed:exposed:$exposedVersion"
+    implementation "org.jetbrains.exposed:spring-transaction:$exposedVersion"
+    implementation 'org.flywaydb:flyway-core'
+
 
     implementation "io.springfox:springfox-swagger2:$swaggerVersion"
     implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
-
-	  implementation "org.jetbrains.exposed:exposed:$exposedVersion"
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -69,7 +74,7 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-params:$junitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 
-    testCompile "org.assertj:assertj-core:3.13.2"
+    testImplementation "io.strikt:strikt-core:$striktVersion"
 }
 
 compileKotlin {
