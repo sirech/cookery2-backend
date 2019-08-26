@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/app
+
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    steps:
+
+      - checkout
+      - run: ./go linter-kt
+      - run: ./go test-unit
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit
+      - run: ./go build
+
+      - persist_to_workspace:
+          root: build/libs
+          paths:
+            - cookery2.jar
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - build
