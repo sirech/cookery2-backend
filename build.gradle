@@ -4,7 +4,7 @@ buildscript {
         springBootVersion = '2.1.7.RELEASE'
         jacksonVersion = '2.9.9'
         swaggerVersion = '2.9.2'
-        exposedVersion = '0.17.1'
+        exposedVersion = '0.17.2'
         junitVersion = '5.5.1'
         mockkVersion = '1.9.3'
         springMockkVersion = '1.1.2'
