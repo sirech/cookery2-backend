@@ -5,7 +5,7 @@ buildscript {
         jacksonVersion = '2.9.9'
         swaggerVersion = '2.9.2'
         exposedVersion = '0.17.2'
-        flywayVersion = '6.0.0'
+        flywayVersion = '5.2.4'
         junitVersion = '5.5.1'
         mockkVersion = '1.9.3'
         springMockkVersion = '1.1.2'
