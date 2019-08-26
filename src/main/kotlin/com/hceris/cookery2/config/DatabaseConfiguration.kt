@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @Configuration
 @EnableTransactionManagement
 class DatabaseConfiguration {
-
     @Bean
     fun transactionManager(dataSource: HikariDataSource) = SpringTransactionManager(dataSource)
 }

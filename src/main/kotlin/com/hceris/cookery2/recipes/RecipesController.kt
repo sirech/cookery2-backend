@@ -15,10 +15,10 @@ private const val PATH = "/rest/recipes"
 @RestController
 @RequestMapping(PATH, produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
 class RecipesController(val repository: RecipeRepository) {
+
     @PostMapping
     fun create(@RequestBody form: RecipeForm): ResponseEntity<RecipeCreated> {
         val id = repository.create(form)
         return ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(id))
     }
-
 }

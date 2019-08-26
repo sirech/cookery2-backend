@@ -5,6 +5,7 @@ import com.hceris.cookery2.recipes.domain.RecipeForm
 import com.hceris.cookery2.recipes.domain.StepForm
 
 object Fixtures {
+
     val recipeForm = RecipeForm(
             "carbonara", 2,
             listOf(
