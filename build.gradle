@@ -6,6 +6,8 @@ buildscript {
         swaggerVersion = '2.9.2'
         exposedVersion = '0.17.1'
         junitVersion = '5.5.1'
+        mockkVersion = '1.9.3'
+        springMockkVersion = '1.1.2'
         striktVersion = '0.21.1'
         detektVersion = '1.0.1'
     }
@@ -75,6 +77,8 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 
     testImplementation "io.strikt:strikt-core:$striktVersion"
+    testImplementation "io.mockk:mockk:${mockkVersion}"
+    testImplementation "com.ninja-squad:springmockk:${springMockkVersion}"
 }
 
 compileKotlin {
