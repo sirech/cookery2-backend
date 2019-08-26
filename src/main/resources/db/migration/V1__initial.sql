@@ -18,3 +18,15 @@ create table ingredients (
   recipe_id int,
   foreign key (recipe_id) references  recipes (id)
 );
+
+create table steps (
+  id serial primary key,
+  description text not null,
+  duration number not null,
+
+  created_at date not null default now(),
+  updated_at date not null default now() on update now(),
+
+  recipe_id int,
+  foreign key (recipe_id) references  recipes (id)
+);

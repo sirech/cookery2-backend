@@ -5,10 +5,9 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 
-object Ingredients : IntIdTable() {
-    val name = varchar("name", 255).uniqueIndex()
-    val quantity = integer("quantity")
-    val unit = varchar("unit", 8)
+object Steps : IntIdTable() {
+    val description = text("description")
+    val duration = integer("duration")
 
     val createdAt = datetime("created_at")
     val updatedAt = datetime("updated_at")
@@ -16,15 +15,14 @@ object Ingredients : IntIdTable() {
     val recipe = reference("recipe_id", Recipes)
 }
 
-class Ingredient(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<Ingredient>(Ingredients)
+class Step(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<Step>(Steps)
 
-    var name by Ingredients.name
-    var quantity by Ingredients.quantity
-    var unit by Ingredients.unit
+    var description by Steps.description
+    var duration by Steps.duration
 
     var createdAt by Recipes.createdAt
     var updatedAt by Recipes.updatedAt
 
-    var recipe by Recipe referencedOn Ingredients.recipe
+    var recipe by Recipe referencedOn Steps.recipe
 }

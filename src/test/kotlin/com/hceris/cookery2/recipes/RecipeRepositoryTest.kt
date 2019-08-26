@@ -44,6 +44,8 @@ internal class RecipeRepositoryTest {
                     .isEqualTo("carbonara")
             get { ingredients.toList() }
                     .hasSize(3)
+            get { steps.toList() }
+                    .hasSize(3)
         }
     }
 }
