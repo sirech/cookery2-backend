@@ -4,7 +4,8 @@ buildscript {
         springBootVersion = '2.1.7.RELEASE'
         jacksonVersion = '2.9.9'
         swaggerVersion = '2.9.2'
-        exposedVersion = '0.17.1'
+        exposedVersion = '0.17.2'
+        flywayVersion = '6.0.0'
         junitVersion = '5.5.1'
         mockkVersion = '1.9.3'
         springMockkVersion = '1.1.2'
@@ -25,7 +26,7 @@ buildscript {
         classpath "com.github.ben-manes:gradle-versions-plugin:0.21.0"
 
         // Verify pacts from gradle
-        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.8'
+        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.12'
 
         // Linter
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${detektVersion}"
@@ -63,7 +64,7 @@ dependencies {
 
     implementation "org.jetbrains.exposed:exposed:$exposedVersion"
     implementation "org.jetbrains.exposed:spring-transaction:$exposedVersion"
-    implementation 'org.flywaydb:flyway-core'
+    implementation "org.flywaydb:flyway-core:$flywayVersion"
 
 
     implementation "io.springfox:springfox-swagger2:$swaggerVersion"
