@@ -19,4 +19,6 @@ class Recipe(id: EntityID<Int>) : IntEntity(id) {
     var servings by Recipes.servings
     var createdAt by Recipes.createdAt
     var updatedAt by Recipes.updatedAt
+
+    val ingredients by Ingredient referrersOn Ingredients.recipe
 }

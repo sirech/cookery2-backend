@@ -5,3 +5,16 @@ create table recipes (
   created_at date not null default now(),
   updated_at date not null default now() on update now()
 );
+
+create table ingredients (
+  id serial primary key,
+  name varchar(255) unique,
+  quantity number not null,
+  unit varchar(8) not null,
+
+  created_at date not null default now(),
+  updated_at date not null default now() on update now(),
+
+  recipe_id int,
+  foreign key (recipe_id) references  recipes (id)
+);
