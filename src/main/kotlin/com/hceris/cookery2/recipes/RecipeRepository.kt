@@ -11,12 +11,6 @@ class RecipeRepository {
         return Recipe.new {
             name = recipe.name
             servings = recipe.servings
-
-            DateTime.now().let {
-                updatedAt = it
-                createdAt = it
-            }
-
         }.id.value
     }
 
