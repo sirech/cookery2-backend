@@ -2,13 +2,11 @@ package com.hceris.cookery2.recipes
 
 import com.hceris.cookery2.recipes.domain.RecipeCreated
 import com.hceris.cookery2.recipes.domain.RecipeForm
+import com.hceris.cookery2.recipes.presentation.RecipeOverview
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 private const val PATH = "/rest/recipes"
 
@@ -20,5 +18,10 @@ class RecipesController(val repository: RecipeRepository) {
     fun create(@RequestBody form: RecipeForm): ResponseEntity<RecipeCreated> {
         val id = repository.create(form)
         return ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(id))
+    }
+
+    @GetMapping
+    fun recipes(): List<RecipeOverview> {
+        return repository.all()
     }
 }

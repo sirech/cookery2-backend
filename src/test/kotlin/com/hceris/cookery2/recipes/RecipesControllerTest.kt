@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import com.hceris.cookery2.recipes.presentation.RecipeOverview
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
@@ -53,5 +54,15 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isCreated)
+    }
+
+    @Test
+    fun `list recipes`() {
+        every { repository.all() } returns listOf(RecipeOverview(1, "carbonara", 3, 25))
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }
