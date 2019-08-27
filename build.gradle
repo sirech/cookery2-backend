@@ -108,7 +108,7 @@ pact {
     serviceProviders {
         api {
             port = 4003
-            def pactFile = file('../ui/pacts/sar-ui-entrypoint-api.json')
+
             hasPactWith('cookery2-frontend') {
                 pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
             }
