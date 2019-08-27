@@ -47,4 +47,11 @@ internal class RecipeRepositoryTest {
                     .hasSize(3)
         }
     }
+
+    @Test
+    fun `reads recipes`() {
+        (1..10).forEach { _ -> repository.create(Fixtures.recipeForm)  }
+        expectThat(repository.all())
+                .hasSize(10)
+    }
 }

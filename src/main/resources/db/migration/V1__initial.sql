@@ -1,6 +1,6 @@
 create table recipes (
   id serial primary key,
-  name varchar(255) unique,
+  name varchar(255) not null,
   servings number not null,
   created_at date not null default now(),
   updated_at date not null default now() on update now()
@@ -8,7 +8,7 @@ create table recipes (
 
 create table ingredients (
   id serial primary key,
-  name varchar(255) unique,
+  name varchar(255) not null,
   quantity number not null,
   unit varchar(8) not null,
 
