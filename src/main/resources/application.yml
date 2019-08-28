@@ -2,8 +2,10 @@ server:
   port: 4003
 spring:
   datasource:
-    url=jdbc:h2:mem:testdb
-    driverClasName=org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    driverClasName: org.h2.Driver
+  flyway:
+    locations: classpath:/db/migration,classpath:/db/testdata
 pact:
   enabled: true
 
