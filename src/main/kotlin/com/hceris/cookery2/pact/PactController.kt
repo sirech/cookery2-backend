@@ -19,6 +19,7 @@ data class Pact(val state: String)
 @RestController
 @RequestMapping(PATH, consumes = [MediaType.APPLICATION_JSON_VALUE])
 @ConditionalOnExpression("\${pact.enabled:true}")
+@Suppress("MagicNumber")
 class PactController(val repository: RecipeRepository) {
     @PostMapping
     fun setup(@RequestBody body: Pact): ResponseEntity<Map<String,String>> {
