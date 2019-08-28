@@ -61,8 +61,7 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
         every { repository.all() } returns listOf(RecipeOverview(1, "carbonara", 3, 25))
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }

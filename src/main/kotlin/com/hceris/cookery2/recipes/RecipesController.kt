@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*
 private const val PATH = "/rest/recipes"
 
 @RestController
-@RequestMapping(PATH, produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+@RequestMapping(PATH, produces = [MediaType.APPLICATION_JSON_VALUE])
 class RecipesController(val repository: RecipeRepository) {
 
-    @PostMapping
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun create(@RequestBody form: RecipeForm): ResponseEntity<RecipeCreated> {
         val id = repository.create(form)
         return ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(id))
