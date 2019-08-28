@@ -111,6 +111,7 @@ pact {
 
             hasPactWith('cookery2-frontend') {
                 pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
+                stateChangeUrl = url("http://localhost:$port/pact")
             }
         }
     }
