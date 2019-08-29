@@ -8,3 +8,9 @@ INSERT INTO steps(description, duration, recipe_id)
 VALUES
 ('Cook the pasta', 7, 1),
 ('Fry the bacon', 5, 1);
+
+INSERT INTO ingredients(name, quantity, unit, recipe_id)
+VALUES
+('pasta', 300, 'gr', 1),
+('egg', 2, 'unit', 1),
+('guanciale', 150, 'gr', 1);

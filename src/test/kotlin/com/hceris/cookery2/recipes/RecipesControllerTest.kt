@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import com.hceris.cookery2.recipes.presentation.RecipeDetails
 import com.hceris.cookery2.recipes.presentation.RecipeOverview
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -61,6 +62,22 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
         every { repository.all() } returns listOf(RecipeOverview(1, "carbonara", 3, 25))
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun `gets one recipe`() {
+        every { repository.find(1) } returns RecipeDetails(
+                1,
+                "carbonara",
+                3,
+                25,
+                listOf(),
+                listOf()
+        )
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }

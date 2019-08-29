@@ -4,6 +4,7 @@ import com.hceris.cookery2.recipes.domain.Ingredient
 import com.hceris.cookery2.recipes.domain.Recipe
 import com.hceris.cookery2.recipes.domain.RecipeForm
 import com.hceris.cookery2.recipes.domain.Step
+import com.hceris.cookery2.recipes.presentation.asDetails
 import com.hceris.cookery2.recipes.presentation.asOverview
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -27,7 +28,7 @@ class RecipeRepository {
         return recipe.id.value
     }
 
-    fun find(id: Int) = Recipe.findById(id)
+    fun find(id: Int) = Recipe.findById(id)?.asDetails()
 
     fun all() = Recipe.all().limit(PAGE_SIZE).map { it.asOverview() }
 

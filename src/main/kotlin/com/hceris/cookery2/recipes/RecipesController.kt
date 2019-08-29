@@ -2,6 +2,7 @@ package com.hceris.cookery2.recipes
 
 import com.hceris.cookery2.recipes.domain.RecipeCreated
 import com.hceris.cookery2.recipes.domain.RecipeForm
+import com.hceris.cookery2.recipes.presentation.RecipeDetails
 import com.hceris.cookery2.recipes.presentation.RecipeOverview
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -23,5 +24,12 @@ class RecipesController(val repository: RecipeRepository) {
     @GetMapping
     fun recipes(): List<RecipeOverview> {
         return repository.all()
+    }
+
+    @GetMapping("{id}")
+    fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
+        return repository.find(id)?.run {
+            ResponseEntity.ok(this)
+        } ?: ResponseEntity.notFound().build()
     }
 }
