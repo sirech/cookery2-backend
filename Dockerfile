@@ -14,4 +14,4 @@ RUN adduser -D runner
 
 USER runner
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["java", "-jar", "app.jar", "-Dspring.profiles.active=${ENV}"]
+CMD ["java", "-Dspring.profiles.active=${ENV}", "-jar", "app.jar" ]
