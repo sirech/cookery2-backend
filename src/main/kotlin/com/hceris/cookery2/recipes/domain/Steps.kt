@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 
-object Steps : IntIdTable() {
+object Steps : IntIdTable(name = "steps") {
     val description = text("description")
     val duration = integer("duration")
 

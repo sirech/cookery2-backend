@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 
-object Recipes : IntIdTable() {
+object Recipes : IntIdTable(name = "recipes") {
     val name = varchar("name", 255).uniqueIndex()
     val servings = integer("servings")
 
