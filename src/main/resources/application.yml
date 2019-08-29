@@ -21,7 +21,7 @@ pact:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:mysql://db/cookery2_production
+    url: jdbc:mysql://db/cookery2_production?createDatabaseIfNotExist=true
     driverClasName: com.mysql.cj.jdbc.Driver
 pact:
   enabled: false
