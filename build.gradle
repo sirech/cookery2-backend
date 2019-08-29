@@ -59,6 +59,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.data:spring-data-commons'
+    implementation 'mysql:mysql-connector-java'
 
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
 

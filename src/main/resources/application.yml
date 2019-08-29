@@ -1,6 +1,13 @@
 server:
   port: 4003
 spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
   datasource:
     url: jdbc:h2:mem:testdb
     driverClasName: org.h2.Driver
@@ -9,3 +16,12 @@ spring:
 pact:
   enabled: true
 
+---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://db/cookery2_production
+    driverClasName: com.mysql.cj.jdbc.Driver
+pact:
+  enabled: false

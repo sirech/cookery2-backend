@@ -3,6 +3,8 @@ FROM openjdk:8-jre-alpine3.9
 WORKDIR /app
 EXPOSE 4003
 
+ENV ENV='dev'
+
 RUN apk add --update --no-cache dumb-init \
   && rm -rf /var/cache/apk/*
 
@@ -12,4 +14,4 @@ RUN adduser -D runner
 
 USER runner
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar", "-Dspring.profiles.active=${ENV}"]
