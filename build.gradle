@@ -110,7 +110,8 @@ pact {
             port = 4003
 
             hasPactWith('cookery2-frontend') {
-                pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
+                pactSource = url('https://raw.githubusercontent.com/sirech/cookery2-frontend/master/pacts/frontend-backend.json')
+                // pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
                 stateChangeUrl = url("http://localhost:$port/pact")
             }
         }
