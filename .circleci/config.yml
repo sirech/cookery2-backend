@@ -64,6 +64,15 @@ jobs:
             docker build . --tag $DOCKER_REGISTRY/cookery2-backend
             docker push $DOCKER_REGISTRY/cookery2-backend
 
+  deploy:
+
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    steps:
+      - add_ssh_keys:
+      - run: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "sh ${DEPLOY_PATH}/bin/update cookery2-backend"
+
 workflows:
   version: 2
   pipeline:
@@ -75,3 +84,6 @@ workflows:
               only: master
           requires:
             - build
+      - deploy:
+          requires:
+            - docker
