@@ -22,7 +22,7 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
     }
 
     private fun jwt(header: String): String? {
-        if (!header.startsWith("Bearer: ")) {
+        if (!header.startsWith("Bearer ")) {
             return null
         }
 

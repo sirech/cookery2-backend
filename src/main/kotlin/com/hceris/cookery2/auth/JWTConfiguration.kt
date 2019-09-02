@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import java.net.URL
 
 @Configuration
-class AuthConfiguration {
+class JWTConfiguration {
     @Value("\${auth.jwks}")
     lateinit var jwks: String
 

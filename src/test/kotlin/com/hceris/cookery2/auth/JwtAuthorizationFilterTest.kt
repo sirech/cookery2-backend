@@ -56,7 +56,7 @@ internal class JwtAuthorizationFilterTest {
 
     @Test
     fun `sets the authorization if there is a proper header`() {
-        request.addHeader(Headers.AUTHORIZATION, "Bearer: $jwt")
+        request.addHeader(Headers.AUTHORIZATION, "Bearer $jwt")
         every { verifier.verify(jwt) } returns token
 
         subject.doFilter(request, response, filterChain)
