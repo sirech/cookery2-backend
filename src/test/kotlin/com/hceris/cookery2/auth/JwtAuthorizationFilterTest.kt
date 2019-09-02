@@ -6,6 +6,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -62,5 +63,11 @@ internal class JwtAuthorizationFilterTest {
         expectThat(SecurityContextHolder.getContext().authentication)
                 .isNotNull()
                 .isEqualTo(token)
+    }
+
+    @Test
+    fun `calls the next step in the filter`() {
+        subject.doFilter(request, response, filterChain)
+        verify { filterChain.doFilter(any(), response) }
     }
 }

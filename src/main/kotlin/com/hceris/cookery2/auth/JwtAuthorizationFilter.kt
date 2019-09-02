@@ -17,6 +17,8 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
                 }
             }
         }
+
+        filterChain.doFilter(request, response)
     }
 
     private fun jwt(header: String): String? {
