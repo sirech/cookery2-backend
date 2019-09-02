@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import com.hceris.cookery2.auth.Verifier
 import com.hceris.cookery2.recipes.presentation.RecipeDetails
 import com.hceris.cookery2.recipes.presentation.RecipeOverview
 import com.ninjasquad.springmockk.MockkBean
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -17,6 +19,9 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean(relaxed = true)
     private lateinit var repository: RecipeRepository
+
+    @MockkBean
+    private lateinit var verifier: Verifier
 
     val json = """
      {
@@ -47,6 +52,7 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
      }   
     """.trimIndent()
 
+    @WithMockUser(username = "dudu", authorities = ["profile", "create:recipes"])
     @Test
     fun `creates recipe`() {
         every { repository.create(any()) } returns 1

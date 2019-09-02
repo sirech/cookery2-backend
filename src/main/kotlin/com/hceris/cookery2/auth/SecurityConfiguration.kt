@@ -21,6 +21,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                     .csrf().disable()
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET).permitAll()
+                    .antMatchers("/pact").permitAll()
                     .anyRequest().authenticated()
                     .anyRequest().hasAuthority("create:recipes")
                     .and()

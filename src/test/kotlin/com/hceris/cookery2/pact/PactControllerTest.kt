@@ -1,5 +1,6 @@
 package com.hceris.cookery2.pact
 
+import com.hceris.cookery2.auth.Verifier
 import com.hceris.cookery2.recipes.RecipeRepository
 import com.ninjasquad.springmockk.MockkBean
 import org.junit.jupiter.api.Test
@@ -15,6 +16,9 @@ internal class PactControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean(relaxed = true)
     private lateinit var repository: RecipeRepository
+
+    @MockkBean
+    private lateinit var verifier: Verifier
 
     @Test
     fun `is disabled for non development profiles`() {
