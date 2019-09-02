@@ -22,5 +22,5 @@ start_server() {
 }
 
 stop_server() {
-  pkill -f 'java -jar'
+  pkill -f 'java -Dspring.profiles.active=pact -jar'
 }
