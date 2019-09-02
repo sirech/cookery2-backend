@@ -12,7 +12,7 @@ start_server() {
     exit 1
   fi
 
-  nohup java -jar ./build/libs/${artifact} >/dev/null 2>&1 &
+  nohup java -Dspring.profiles.active=pact -jar ./build/libs/${artifact} >/dev/null 2>&1 &
 
   # Wait for server to answer requests
   until curl --output /dev/null --silent --fail http://localhost:$port/actuator/health; do

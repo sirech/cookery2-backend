@@ -5,11 +5,23 @@ spring:
     active: dev
 auth:
   jwks: https://hceris.eu.auth0.com/.well-known/jwks.json
+pact:
+  enabled: false
 
 ---
 
 spring:
   profiles: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClasName: org.h2.Driver
+  flyway:
+    locations: classpath:/db/migration,classpath:/db/testdata
+
+---
+
+spring:
+  profiles: pact
   datasource:
     url: jdbc:h2:mem:testdb
     driverClasName: org.h2.Driver
