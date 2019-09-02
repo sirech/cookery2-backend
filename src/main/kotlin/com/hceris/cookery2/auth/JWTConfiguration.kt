@@ -12,14 +12,14 @@ class JWTConfiguration {
     @Value("\${auth.jwks}")
     lateinit var jwks: String
 
-    @Profile("!pact")
+    @Profile("dev", "prod")
     @Bean
     fun verifier(): Verifier {
         val keySet = JWKSet.load(URL(jwks))
         return RemoteVerifier(keySet)
     }
 
-    @Profile("pact")
+    @Profile("pact", "test")
     @Bean("verifier")
     fun verifierMock() = object: Verifier {
         override fun verify(jwt: String): TokenAuthentication? {

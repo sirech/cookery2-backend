@@ -1,3 +1,7 @@
 spring:
   profiles:
-    active: pact
+    active: test
+auth:
+  jwks: /dev/null
+pact:
+  enabled: false
