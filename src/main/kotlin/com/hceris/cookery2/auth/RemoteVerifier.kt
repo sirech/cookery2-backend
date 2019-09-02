@@ -18,13 +18,20 @@ class RemoteVerifier(private val keySet: JWKSet, private val leeway: Long = 10) 
             .acceptExpiresAt(leeway)
             .build()
 
-    override fun verify(jwt: String): DecodedJWT? {
+    override fun verify(jwt: String): TokenAuthentication? {
         return verifier(algorithm(key())).run {
             try {
-                verify(jwt)
+                verify(jwt).asToken()
             } catch (e: JWTVerificationException) {
                 null
             }
         }
     }
+
+    private fun DecodedJWT.scopes() = getClaim("scope")
+            .asString()
+            .split(" ")
+
+    private fun DecodedJWT.asToken() =
+            TokenAuthentication(token, User(subject, scopes()))
 }

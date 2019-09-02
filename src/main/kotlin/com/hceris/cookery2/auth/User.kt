@@ -1,18 +1,19 @@
 package com.hceris.cookery2.auth
 
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class User: UserDetails {
+class User(private val user: String, private val scopes: List<String>) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return mutableListOf<GrantedAuthority>()
+        return scopes
+                .map { scope -> SimpleGrantedAuthority(scope) }
+                .toMutableList()
     }
 
     override fun isEnabled() = true
 
-    override fun getUsername(): String {
-        return "dude"
-    }
+    override fun getUsername() = user
 
     override fun isCredentialsNonExpired() = true
 

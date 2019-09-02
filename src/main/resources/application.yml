@@ -3,6 +3,8 @@ server:
 spring:
   profiles:
     active: dev
+auth:
+  jwks: https://hceris.eu.auth0.com/.well-known/jwks.json
 
 ---
 
