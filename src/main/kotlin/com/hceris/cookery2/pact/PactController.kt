@@ -48,7 +48,5 @@ class PactController(val repository: RecipeRepository) {
         repository.create(recipeForm)
     }
 
-    private fun doNothing() {
-
-    }
+    private fun doNothing() {}
 }

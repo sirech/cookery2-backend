@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
-    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+    override fun doFilterInternal(
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            filterChain: FilterChain) {
         request.getHeader(Headers.AUTHORIZATION)?.let { header ->
             jwt(header)?.let { jwt ->
                 authentication(jwt)?.let { auth ->
