@@ -1,7 +1,9 @@
 package com.hceris.cookery2.recipes
 
+import arrow.core.Either
 import com.hceris.cookery2.Fixtures
 import com.hceris.cookery2.TestTransactionConfiguration
+import com.hceris.cookery2.recipes.presentation.RecipeDetails
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
@@ -11,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import strikt.api.expectThat
 import strikt.assertions.hasSize
+import strikt.assertions.isA
 import strikt.assertions.isEqualTo
-import strikt.assertions.isNotNull
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(
@@ -38,7 +40,7 @@ internal class RecipeRepositoryTest {
         val id = repository.create(Fixtures.recipeForm)
         val recipe = repository.find(id)
         expectThat(recipe)
-                .isNotNull() and {
+                .isA<Either.Right<RecipeDetails>>().get { b } and {
             get { name }
                     .isEqualTo("carbonara")
             get { ingredients.toList() }

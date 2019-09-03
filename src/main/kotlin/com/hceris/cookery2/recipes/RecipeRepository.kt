@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import arrow.core.rightIfNotNull
 import com.hceris.cookery2.recipes.domain.Ingredient
 import com.hceris.cookery2.recipes.domain.Recipe
 import com.hceris.cookery2.recipes.domain.RecipeForm
@@ -28,7 +29,10 @@ class RecipeRepository {
         return recipe.id.value
     }
 
-    fun find(id: Int) = Recipe.findById(id)?.asDetails()
+    fun find(id: Int) =
+            Recipe.findById(id)
+                    .rightIfNotNull { 404 }
+                    .map { it.asDetails() }
 
     fun all() = Recipe.all().limit(PAGE_SIZE).map { it.asOverview() }
 

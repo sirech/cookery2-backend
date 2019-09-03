@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import arrow.core.right
 import com.hceris.cookery2.auth.Verifier
 import com.hceris.cookery2.recipes.presentation.RecipeDetails
 import com.hceris.cookery2.recipes.presentation.RecipeOverview
@@ -81,7 +82,7 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
                 25,
                 listOf(),
                 listOf()
-        )
+        ).right()
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes/1")
                 .accept(MediaType.APPLICATION_JSON))

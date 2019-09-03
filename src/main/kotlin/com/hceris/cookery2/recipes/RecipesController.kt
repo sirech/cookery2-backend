@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import arrow.core.Either
 import com.hceris.cookery2.recipes.domain.RecipeCreated
 import com.hceris.cookery2.recipes.domain.RecipeForm
 import com.hceris.cookery2.recipes.presentation.RecipeDetails
@@ -28,8 +29,9 @@ class RecipesController(val repository: RecipeRepository) {
 
     @GetMapping("{id}")
     fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
-        return repository.find(id)?.run {
-            ResponseEntity.ok(this)
-        } ?: ResponseEntity.notFound().build()
+        return when(val result = repository.find(id)) {
+            is Either.Left -> ResponseEntity.status(result.a).build()
+            is Either.Right -> ResponseEntity.ok(result.b)
+        }
     }
 }

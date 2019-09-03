@@ -30,7 +30,7 @@ internal class RemoteVerifierTest {
         val hundredYears = 3600L * 24 * 365 * 100
         expectThat(RemoteVerifier(keySet, hundredYears).verify(jwt)).isNotNull().and {
             get { name }.isEqualTo("google-oauth2|111460419457288935787")
-            get { authorities.map { it -> it.authority } }.contains("create:recipes")
+            get { authorities.map { it.authority } }.contains("create:recipes")
         }
     }
 }
