@@ -28,15 +28,10 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
         binding {
             val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
             val (jwt) = header.asJwt()
-            val (token) = authentication(jwt).toOption()
+            val (token) = verifier.verify(jwt)
             SecurityContextHolder.getContext().authentication = token
         }
 
         filterChain.doFilter(request, response)
-    }
-
-
-    private fun authentication(jwt: String): TokenAuthentication? {
-        return verifier.verify(jwt)
     }
 }

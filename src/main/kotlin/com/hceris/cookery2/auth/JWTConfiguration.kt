@@ -1,5 +1,6 @@
 package com.hceris.cookery2.auth
 
+import arrow.core.toOption
 import com.nimbusds.jose.jwk.JWKSet
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -22,9 +23,7 @@ class JWTConfiguration {
     @Profile("pact", "test")
     @Bean("verifier")
     fun verifierMock() = object: Verifier {
-        override fun verify(jwt: String): TokenAuthentication? {
-            return TokenAuthentication(jwt, User("me", listOf("profiles", "create:recipes")))
-        }
-
+        override fun verify(jwt: String) =
+                TokenAuthentication(jwt, User("me", listOf("profiles", "create:recipes"))).toOption()
     }
 }
