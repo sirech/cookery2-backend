@@ -1,6 +1,7 @@
 package com.hceris.cookery2.recipes.domain
 
 class FormValidator(private val form: RecipeForm) {
+    @SuppressWarnings("ReturnCount")
     fun isValid(): Boolean {
         if (form.name.isBlank()) return false
         if (form.servings <= 0) return false

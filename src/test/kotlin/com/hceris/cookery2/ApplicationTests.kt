@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner
 @SpringBootTest
 class ApplicationTests {
 
-	@Test
-	fun contextLoads() {
-	}
-
+    @SuppressWarnings("EmptyFunctionBlock")
+    @Test
+    fun contextLoads() {
+    }
 }

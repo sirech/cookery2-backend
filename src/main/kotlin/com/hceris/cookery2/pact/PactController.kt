@@ -48,5 +48,6 @@ class PactController(val repository: RecipeRepository) {
         repository.create(recipeForm)
     }
 
+    @SuppressWarnings("EmptyFunctionBlock")
     private fun doNothing() {}
 }

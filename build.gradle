@@ -130,7 +130,9 @@ pact {
     }
 }
 
+
 detekt {
     toolVersion = "${detektVersion}"
     input = files("src/main/kotlin", "src/test/kotlin")
+    config = files("detekt-config.yml")
 }
