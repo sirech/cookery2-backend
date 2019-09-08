@@ -53,6 +53,16 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
      }   
     """.trimIndent()
 
+    val invalidJson = """
+     {
+          "name": "carbonara",
+          "servings": -1,
+          "steps": [],
+          "ingredients": []
+            
+     }   
+    """.trimIndent()
+
     @WithMockUser(username = "dudu", authorities = ["profile", "create:recipes"])
     @Test
     fun `creates recipe`() {
@@ -62,6 +72,17 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isCreated)
+    }
+
+    @WithMockUser(username = "dudu", authorities = ["profile", "create:recipes"])
+    @Test
+    fun `creates throws error if invalid form was sent`() {
+        every { repository.create(any()) } returns 1
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/recipes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(invalidJson))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
 
     @Test

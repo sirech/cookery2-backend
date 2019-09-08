@@ -2,6 +2,7 @@ package com.hceris.cookery2.recipes
 
 import arrow.core.Either
 import com.hceris.cookery2.auth.Headers
+import com.hceris.cookery2.recipes.domain.FormValidator
 import com.hceris.cookery2.recipes.domain.RecipeCreated
 import com.hceris.cookery2.recipes.domain.RecipeForm
 import com.hceris.cookery2.recipes.presentation.RecipeDetails
@@ -28,11 +29,20 @@ class RecipesController(val repository: RecipeRepository) {
             paramType = "header")])
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Recipe was created", response = RecipeCreated::class),
-        ApiResponse(code = 403, message = "Not authorized")
+        ApiResponse(code = 403, message = "Not authorized"),
+        ApiResponse(code = 400, message = "Invalid recipe form")
     ])
     fun create(@RequestBody form: RecipeForm): ResponseEntity<RecipeCreated> {
-        val id = repository.create(form)
-        return ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(id))
+        val result = Either.cond(
+                FormValidator(form).isValid(),
+                { repository.create(form) },
+                { 400 }
+        )
+
+        return when (result) {
+            is Either.Left -> ResponseEntity.status(result.a).build()
+            is Either.Right -> ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(result.b))
+        }
     }
 
     @GetMapping
