@@ -5,6 +5,7 @@ spring:
     active: dev
 auth:
   jwks: https://hceris.eu.auth0.com/.well-known/jwks.json
+  enabled: true
 pact:
   enabled: false
 
@@ -27,6 +28,8 @@ spring:
     driverClasName: org.h2.Driver
   flyway:
     locations: classpath:/db/migration,classpath:/db/testdata
+auth:
+  enabled: false
 pact:
   enabled: true
 
@@ -37,5 +40,3 @@ spring:
   datasource:
     url: jdbc:mysql://db/cookery2_production?createDatabaseIfNotExist=true
     driverClasName: com.mysql.cj.jdbc.Driver
-pact:
-  enabled: false

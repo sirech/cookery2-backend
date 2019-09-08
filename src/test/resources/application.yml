@@ -3,5 +3,6 @@ spring:
     active: test
 auth:
   jwks: /dev/null
+  enabled: false
 pact:
   enabled: false
