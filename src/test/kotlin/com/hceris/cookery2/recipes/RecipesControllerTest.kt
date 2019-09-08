@@ -65,6 +65,16 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
+    fun `create throws error if not authorized`() {
+        every { repository.create(any()) } returns 1
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/recipes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().`is`(403))
+    }
+
+    @Test
     fun `list recipes`() {
         every { repository.all() } returns listOf(RecipeOverview(1, "carbonara", 3, 25))
 
