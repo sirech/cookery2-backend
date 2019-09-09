@@ -29,7 +29,7 @@ buildscript {
         classpath "com.github.ben-manes:gradle-versions-plugin:0.24.0"
 
         // Verify pacts from gradle
-        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.12'
+        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.13'
 
         // Linter
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${detektVersion}"
