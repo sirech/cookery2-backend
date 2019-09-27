@@ -1,6 +1,8 @@
 package com.hceris.cookery2
 
 import arrow.core.Either
+import arrow.core.Option
+import arrow.core.Some
 import strikt.api.Assertion
 import strikt.assertions.isA
 import java.io.InputStream
@@ -20,3 +22,7 @@ fun InputStream.readTextAndClose(charset: Charset = Charsets.UTF_8): String {
 inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isRight() =
         isA<Either.Right<T>>()
                 .get { b }
+
+inline fun <reified T> Assertion.Builder<Option<T>>.isSome() =
+        isA<Some<T>>()
+                .get { t }
