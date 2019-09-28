@@ -1,14 +1,13 @@
 package com.hceris.cookery2.auth
 
-import arrow.core.None
 import com.hceris.cookery2.asStream
+import com.hceris.cookery2.isEmpty
 import com.hceris.cookery2.isSome
 import com.hceris.cookery2.readTextAndClose
 import com.nimbusds.jose.jwk.JWKSet
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.contains
-import strikt.assertions.isA
 import strikt.assertions.isEqualTo
 
 internal class RemoteVerifierTest {
@@ -18,12 +17,12 @@ internal class RemoteVerifierTest {
 
     @Test
     fun `verify does not work with a invalid jwt token`() {
-        expectThat(RemoteVerifier(keySet).verify(jwt)).isA<None>()
+        expectThat(RemoteVerifier(keySet).verify(jwt)).isEmpty()
     }
 
     @Test
     fun `verify does not work if no token was passed`() {
-        expectThat(RemoteVerifier(keySet).verify("")).isA<None>()
+        expectThat(RemoteVerifier(keySet).verify("")).isEmpty()
     }
 
     @Test

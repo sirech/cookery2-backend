@@ -1,6 +1,7 @@
 package com.hceris.cookery2
 
 import arrow.core.Either
+import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import strikt.api.Assertion
@@ -26,3 +27,6 @@ inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isRight() =
 inline fun <reified T> Assertion.Builder<Option<T>>.isSome() =
         isA<Some<T>>()
                 .get { t }
+
+inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
+        isA<None>()
