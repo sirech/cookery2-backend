@@ -2,6 +2,7 @@ package com.hceris.cookery2.recipes
 
 import com.hceris.cookery2.Fixtures
 import com.hceris.cookery2.TestTransactionConfiguration
+import com.hceris.cookery2.isLeft
 import com.hceris.cookery2.isRight
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -46,6 +47,14 @@ internal class RecipeRepositoryTest {
             get { steps.toList() }
                     .hasSize(3)
         }
+    }
+
+    @Test
+    fun `returns error if recipe is not there`() {
+        val recipe = repository.find(4350320)
+        expectThat(recipe)
+                .isLeft()
+                .isEqualTo(404)
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.hceris.cookery2.recipes
 
+import arrow.core.left
 import arrow.core.right
 import com.hceris.cookery2.auth.Verifier
 import com.hceris.cookery2.recipes.presentation.RecipeDetails
@@ -118,5 +119,14 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun `returns error if recipe is not found`() {
+        every { repository.find(1) } returns 404.left()
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes/1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
     }
 }

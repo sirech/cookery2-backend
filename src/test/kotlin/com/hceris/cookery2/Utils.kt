@@ -24,6 +24,10 @@ inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isRight() =
         isA<Either.Right<T>>()
                 .get { b }
 
+inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isLeft() =
+        isA<Either.Left<U>>()
+                .get { a }
+
 inline fun <reified T> Assertion.Builder<Option<T>>.isSome() =
         isA<Some<T>>()
                 .get { t }
