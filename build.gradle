@@ -4,7 +4,7 @@ buildscript {
         springBootVersion = '2.1.9.RELEASE'
         jacksonVersion = '2.10.0'
         swaggerVersion = '2.9.2'
-        exposedVersion = '0.17.4'
+        exposedVersion = '0.17.6'
         arrowVersion = '0.9.0'
         jwkSetVersion = '4.2'
         auth0Version = '3.8.3'
