@@ -4,7 +4,7 @@ buildscript {
         springBootVersion = '2.1.9.RELEASE'
         jacksonVersion = '2.10.1'
         swaggerVersion = '2.9.2'
-        exposedVersion = '0.17.4'
+        exposedVersion = '0.17.7'
         arrowVersion = '0.9.0'
         jwkSetVersion = '4.2'
         auth0Version = '3.8.3'
@@ -26,7 +26,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.25.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.27.0"
 
         // Verify pacts from gradle
         classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.14'
