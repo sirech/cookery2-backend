@@ -22,7 +22,6 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET).permitAll()
                     .antMatchers("/pact").permitAll()
-                    .anyRequest().authenticated()
                     .anyRequest().hasAuthority("create:recipes")
                     .and()
                     .addFilterBefore(filter, BasicAuthenticationFilter::class.java)

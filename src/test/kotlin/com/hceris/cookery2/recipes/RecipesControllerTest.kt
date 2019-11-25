@@ -127,6 +127,6 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/recipes/1")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.status().isNotFound)
     }
 }
