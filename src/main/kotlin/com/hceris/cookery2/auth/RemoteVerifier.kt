@@ -1,7 +1,6 @@
 package com.hceris.cookery2.auth
 
 import arrow.fx.IO
-import arrow.fx.extensions.fx
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
@@ -23,13 +22,10 @@ class RemoteVerifier(private val keySet: JWKSet, private val leeway: Long = 10) 
     }
 
     override fun verify(jwt: String): IO<TokenAuthentication> {
-        return IO.fx {
-            val key = key(keySet)
-            val algorithm = algorithm(key)
-            val verifier = verifier(algorithm, leeway)
-            val (token) = IO { verifier.verify(jwt).asToken() }
-            token
-        }
+        val key = key(keySet)
+        val algorithm = algorithm(key)
+        val verifier = verifier(algorithm, leeway)
+        return IO { verifier.verify(jwt).asToken() }
     }
 
 }
