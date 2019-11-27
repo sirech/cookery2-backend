@@ -2,7 +2,7 @@ package com.hceris.cookery2.auth
 
 import arrow.core.Option
 import arrow.core.Try
-import arrow.core.extensions.option.monad.binding
+import arrow.core.extensions.fx
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
@@ -24,7 +24,7 @@ class RemoteVerifier(private val keySet: JWKSet, private val leeway: Long = 10) 
     }
 
     override fun verify(jwt: String): Option<TokenAuthentication> {
-        return binding {
+        return Option.fx {
             val key = key(keySet)
             val algorithm = algorithm(key)
             val verifier = verifier(algorithm, leeway)

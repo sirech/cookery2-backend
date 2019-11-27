@@ -5,7 +5,7 @@ buildscript {
         jacksonVersion = '2.10.1'
         swaggerVersion = '2.9.2'
         exposedVersion = '0.17.7'
-        arrowVersion = '0.9.0'
+        arrowVersion = '0.10.3'
         jwkSetVersion = '4.2'
         auth0Version = '3.8.3'
         flywayVersion = '5.2.4'
@@ -74,9 +74,8 @@ dependencies {
     implementation("com.nimbusds:nimbus-jwkset-loader:$jwkSetVersion")
     implementation("com.auth0:java-jwt:$auth0Version")
 
-    implementation("io.arrow-kt:arrow-core-data:$arrowVersion")
-    implementation("io.arrow-kt:arrow-core-extensions:$arrowVersion")
-    implementation("io.arrow-kt:arrow-typeclasses:$arrowVersion")
+    implementation("io.arrow-kt:arrow-core:$arrowVersion")
+    implementation("io.arrow-kt:arrow-fx:$arrowVersion")
 
     implementation "io.springfox:springfox-swagger2:$swaggerVersion"
     implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"

@@ -1,8 +1,9 @@
 package com.hceris.cookery2.auth
 
 import arrow.core.None
+import arrow.core.Option
 import arrow.core.Some
-import arrow.core.extensions.option.monad.binding
+import arrow.core.extensions.fx
 import arrow.core.toOption
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -25,7 +26,7 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
             response: HttpServletResponse,
             filterChain: FilterChain) {
 
-        binding {
+        Option.fx {
             val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
             val (jwt) = header.asJwt()
             val (token) = verifier.verify(jwt)
