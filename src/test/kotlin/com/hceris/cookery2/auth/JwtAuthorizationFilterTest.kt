@@ -1,7 +1,7 @@
 package com.hceris.cookery2.auth
 
-import arrow.core.None
-import arrow.core.toOption
+import arrow.fx.IO
+import com.auth0.jwt.exceptions.JWTVerificationException
 import com.hceris.cookery2.asStream
 import com.hceris.cookery2.readTextAndClose
 import io.mockk.every
@@ -51,7 +51,7 @@ internal class JwtAuthorizationFilterTest {
 
     @Test
     fun `does not do anything if the token cannot be verified`() {
-        every { verifier.verify(jwt) } returns None
+        every { verifier.verify(jwt) } returns IO.raiseError(JWTVerificationException("error"))
         subject.doFilter(request, response, filterChain)
         expectThat(SecurityContextHolder.getContext().authentication).isNull()
     }
@@ -66,7 +66,7 @@ internal class JwtAuthorizationFilterTest {
     @Test
     fun `sets the authorization if there is a proper header`() {
         request.addHeader(Headers.AUTHORIZATION, "Bearer $jwt")
-        every { verifier.verify(jwt) } returns token.toOption()
+        every { verifier.verify(jwt) } returns IO.just(token)
 
         subject.doFilter(request, response, filterChain)
         expectThat(SecurityContextHolder.getContext().authentication)

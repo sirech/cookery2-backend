@@ -4,6 +4,7 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import arrow.fx.IO
 import strikt.api.Assertion
 import strikt.assertions.isA
 import java.io.InputStream
@@ -34,3 +35,14 @@ inline fun <reified T> Assertion.Builder<Option<T>>.isSome() =
 
 inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
         isA<None>()
+
+inline fun <reified T> Assertion.Builder<IO<T>>.blowsUp() =
+        get { attempt() }
+                .get { unsafeRunSync() }
+                .isA<Either.Left<Throwable>>()
+
+inline fun <reified T> Assertion.Builder<IO<T>>.works() =
+        get { attempt() }
+                .get { unsafeRunSync() }
+                .isA<Either.Right<T>>()
+                .get { b }
