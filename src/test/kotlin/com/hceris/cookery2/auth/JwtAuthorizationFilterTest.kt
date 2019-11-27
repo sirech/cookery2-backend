@@ -50,15 +50,16 @@ internal class JwtAuthorizationFilterTest {
     }
 
     @Test
-    fun `does not do anything if the token cannot be verified`() {
-        every { verifier.verify(jwt) } returns IO.raiseError(JWTVerificationException("error"))
+    fun `does not do anything if the token is malformed`() {
+        request.addHeader(Headers.AUTHORIZATION, "Bearer: $jwt")
         subject.doFilter(request, response, filterChain)
         expectThat(SecurityContextHolder.getContext().authentication).isNull()
     }
 
     @Test
-    fun `does not do anything if the token is malformed`() {
-        request.addHeader(Headers.AUTHORIZATION, "Bearer: $jwt")
+    fun `does not do anything if the token cannot be verified`() {
+        request.addHeader(Headers.AUTHORIZATION, "Bearer $jwt")
+        every { verifier.verify(jwt) } returns IO.raiseError(JWTVerificationException("error"))
         subject.doFilter(request, response, filterChain)
         expectThat(SecurityContextHolder.getContext().authentication).isNull()
     }

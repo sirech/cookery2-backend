@@ -37,7 +37,7 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
             IO.fx {
                 val (token) = verifier.verify(jwt.getOrElse { "" })
                 SecurityContextHolder.getContext().authentication = token
-            }.unsafeRunSync()
+            }.attempt().unsafeRunSync()
         }
 
         filterChain.doFilter(request, response)
