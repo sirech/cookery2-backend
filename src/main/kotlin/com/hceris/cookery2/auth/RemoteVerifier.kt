@@ -1,8 +1,12 @@
 package com.hceris.cookery2.auth
 
-import arrow.fx.IO
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.auth0.jwt.JWT
+import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
@@ -21,13 +25,14 @@ class RemoteVerifier(private val keySet: JWKSet, private val leeway: Long = 10) 
 
     }
 
-    override fun verify(jwt: String): IO<TokenAuthentication> {
+    override fun verify(jwt: String): Either<JWTVerificationException, TokenAuthentication> {
         val key = key(keySet)
         val algorithm = algorithm(key)
         val verifier = verifier(algorithm, leeway)
-        return IO { verifier.verify(jwt).asToken() }
+        return verifier
+                .unsafeVerify(jwt)
+                .map { it.asToken() }
     }
-
 }
 
 private fun DecodedJWT.scopes() = getClaim("scope")
@@ -36,3 +41,9 @@ private fun DecodedJWT.scopes() = getClaim("scope")
 
 private fun DecodedJWT.asToken() =
         TokenAuthentication(token, User(subject, scopes()))
+
+private fun JWTVerifier.unsafeVerify(jwt: String) = try {
+    verify(jwt).right()
+} catch (e: JWTVerificationException) {
+    e.left()
+}

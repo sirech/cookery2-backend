@@ -26,18 +26,11 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
             response: HttpServletResponse,
             filterChain: FilterChain) {
 
-        val jwt = Option.fx {
+        val token = Option.fx {
             val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
             val (jwt) = header.asJwt()
-            jwt
-        }
-
-
-        if (jwt.isDefined()) {
-            IO.fx {
-                val (token) = verifier.verify(jwt.getOrElse { "" })
-                SecurityContextHolder.getContext().authentication = token
-            }.attempt().unsafeRunSync()
+            val (token) = verifier.verify(jwt).toOption()
+            SecurityContextHolder.getContext().authentication = token
         }
 
         filterChain.doFilter(request, response)

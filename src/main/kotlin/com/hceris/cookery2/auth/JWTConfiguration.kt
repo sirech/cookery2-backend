@@ -1,6 +1,6 @@
 package com.hceris.cookery2.auth
 
-import arrow.fx.IO
+import arrow.core.right
 import com.nimbusds.jose.jwk.JWKSet
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -24,6 +24,6 @@ class JWTConfiguration {
     @Bean("verifier")
     fun verifierMock() = object : Verifier {
         override fun verify(jwt: String) =
-                IO.just(TokenAuthentication(jwt, User("me", listOf("profiles", "create:recipes"))))
+                TokenAuthentication(jwt, User("me", listOf("profiles", "create:recipes"))).right()
     }
 }
