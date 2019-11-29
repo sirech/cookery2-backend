@@ -2,11 +2,8 @@ package com.hceris.cookery2.auth
 
 import arrow.core.Option
 import arrow.core.extensions.fx
-import arrow.core.getOrElse
 import arrow.core.maybe
 import arrow.core.toOption
-import arrow.fx.IO
-import arrow.fx.extensions.fx
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
@@ -17,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
     companion object {
-        private fun String.asJwt() = startsWith("Bearer ")
+        private fun String.extractToken() = startsWith("Bearer ")
                 .maybe { split(" ").last() }
     }
 
@@ -28,7 +25,7 @@ class JwtAuthorizationFilter(val verifier: Verifier) : OncePerRequestFilter() {
 
         val token = Option.fx {
             val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
-            val (jwt) = header.asJwt()
+            val (jwt) = header.extractToken()
             val (token) = verifier.verify(jwt).toOption()
             SecurityContextHolder.getContext().authentication = token
         }
