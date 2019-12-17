@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 describe 'Container' do
   describe file('/etc/alpine-release') do
-    its(:content) { is_expected.to match(/3.9/) }
+    its(:content) { is_expected.to match(/3.10/) }
   end
 
   %i[dumb-init].each do |package|
@@ -17,7 +17,7 @@ describe 'Container' do
 
   describe 'java' do
     describe command('java -version') do
-      its(:stderr) { is_expected.to match(/1.8.0/) }
+      its(:stderr) { is_expected.to match(/openjdk.*"11.0/) }
     end
 
     describe process('java') do
