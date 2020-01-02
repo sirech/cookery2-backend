@@ -71,7 +71,7 @@ jobs:
 
     steps:
       - add_ssh_keys:
-      - run: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "sh ${DEPLOY_PATH}/bin/update cookery2-backend"
+      - run: ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "${DEPLOY_PATH}/bin/update cookery2-backend"
 
 workflows:
   version: 2
