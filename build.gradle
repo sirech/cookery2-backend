@@ -8,7 +8,7 @@ buildscript {
         arrowVersion = '0.10.4'
         jwkSetVersion = '4.2'
         auth0Version = '3.9.0'
-        flywayVersion = '5.2.4'
+        flywayVersion = '6.1.4'
         junitVersion = '5.5.2'
         mockkVersion = '1.9.3'
         springMockkVersion = '2.0.0'
