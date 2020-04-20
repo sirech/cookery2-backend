@@ -11,7 +11,7 @@ buildscript {
         flywayVersion = '6.3.3'
         junitVersion = '5.5.2'
         mockkVersion = '1.9.3'
-        springMockkVersion = '2.0.0'
+        springMockkVersion = '2.0.1'
         striktVersion = '0.25.0'
         detektVersion = '1.7.4'
     }
