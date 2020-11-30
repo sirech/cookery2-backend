@@ -1,9 +1,6 @@
 package com.hceris.cookery2
 
 import arrow.core.Either
-import arrow.core.None
-import arrow.core.Option
-import arrow.core.Some
 import arrow.fx.IO
 import strikt.api.Assertion
 import strikt.assertions.isA
@@ -28,13 +25,6 @@ inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isRight() =
 inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isLeft() =
         isA<Either.Left<U>>()
                 .get { a }
-
-inline fun <reified T> Assertion.Builder<Option<T>>.isSome() =
-        isA<Some<T>>()
-                .get { t }
-
-inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
-        isA<None>()
 
 inline fun <reified T> Assertion.Builder<IO<T>>.blowsUp() =
         get { attempt() }

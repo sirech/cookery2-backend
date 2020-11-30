@@ -33,11 +33,9 @@ class RecipesController(val repository: RecipeRepository) {
         ApiResponse(code = 400, message = "Invalid recipe form")
     ])
     fun create(@RequestBody form: RecipeForm): ResponseEntity<RecipeCreated> {
-        val result = Either.cond(
-                FormValidator(form).isValid(),
-                { repository.create(form) },
-                { 400 }
-        )
+        val result = Either.conditionally(FormValidator(form).isValid(),
+                { 400 },
+                { repository.create(form) })
 
         return when (result) {
             is Either.Left -> ResponseEntity.status(result.a).build()
