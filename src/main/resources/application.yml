@@ -9,6 +9,19 @@ auth:
 pact:
   enabled: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    flyway:
+      enabled: true
+
 ---
 
 spring:
