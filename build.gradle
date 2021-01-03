@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.4.21'
-        springBootVersion = '2.3.5.RELEASE'
+        springBootVersion = '2.4.1'
         jacksonVersion = '2.12.0'
         swaggerVersion = '3.0.0'
         exposedVersion = '0.17.7'
@@ -10,9 +10,9 @@ buildscript {
         auth0Version = '3.12.0'
         flywayVersion = '6.5.7'
         junitVersion = '5.7.0'
-        mockkVersion = '1.10.2'
+        mockkVersion = '1.10.4'
         springMockkVersion = '2.0.3'
-        striktVersion = '0.28.0'
+        striktVersion = '0.28.1'
         detektVersion = '1.15.0'
     }
     repositories {
