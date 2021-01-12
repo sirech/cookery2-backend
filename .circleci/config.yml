@@ -80,7 +80,7 @@ workflows:
       - build
       - docker:
           context:
-            - docker-context
+            - quay-context
           filters:
             branches:
               only: master
