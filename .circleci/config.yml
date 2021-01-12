@@ -79,11 +79,15 @@ workflows:
     jobs:
       - build
       - docker:
+          context:
+            - docker-context
           filters:
             branches:
               only: master
           requires:
             - build
       - deploy:
+          context:
+            - erza
           requires:
             - docker
