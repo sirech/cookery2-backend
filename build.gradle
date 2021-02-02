@@ -1,18 +1,18 @@
 buildscript {
     ext {
-        kotlinVersion = '1.4.21'
+        kotlinVersion = '1.4.30-RC'
         springBootVersion = '2.4.2'
         jacksonVersion = '2.12.1'
         swaggerVersion = '3.0.0'
-        exposedVersion = '0.17.7'
+        exposedVersion = '0.17.8'
         arrowVersion = '0.11.0'
         jwkSetVersion = '5.0'
         auth0Version = '3.12.1'
-        flywayVersion = '6.5.7'
+        flywayVersion = '7.5.2'
         junitVersion = '5.7.0'
         mockkVersion = '1.10.5'
-        springMockkVersion = '2.0.3'
-        striktVersion = '0.28.1'
+        springMockkVersion = '3.0.1'
+        striktVersion = '0.28.2'
         detektVersion = '1.15.0'
     }
     repositories {
@@ -26,7 +26,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.33.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.36.0"
 
         // Verify pacts from gradle
         classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.15'
