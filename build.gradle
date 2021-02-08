@@ -7,7 +7,7 @@ buildscript {
         exposedVersion = '0.17.8'
         arrowVersion = '0.11.0'
         jwkSetVersion = '5.0'
-        auth0Version = '3.12.1'
+        auth0Version = '3.13.0'
         flywayVersion = '7.5.2'
         junitVersion = '5.7.1'
         mockkVersion = '1.10.5'
