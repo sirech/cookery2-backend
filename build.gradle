@@ -10,7 +10,7 @@ buildscript {
         auth0Version = '3.14.0'
         flywayVersion = '7.7.0'
         junitVersion = '5.7.1'
-        mockkVersion = '1.10.6'
+        mockkVersion = '1.11.0'
         springMockkVersion = '3.0.1'
         striktVersion = '0.28.2'
         detektVersion = '1.16.0'
