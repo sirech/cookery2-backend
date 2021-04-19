@@ -6,7 +6,7 @@ buildscript {
         swaggerVersion = '3.0.0'
         exposedVersion = '0.17.8'
         arrowVersion = '0.11.0'
-        jwkSetVersion = '5.0'
+        jwkSetVersion = '5.1'
         auth0Version = '3.14.0'
         flywayVersion = '7.7.3'
         junitVersion = '5.7.1'
