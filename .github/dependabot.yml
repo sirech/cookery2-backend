@@ -6,47 +6,6 @@ updates:
     interval: weekly
     time: "04:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: io.strikt:strikt-core
-    versions:
-    - 0.28.1
-    - 0.28.2
-    - 0.29.0
-    - 0.30.0
-    - 0.30.1
-  - dependency-name: io.arrow-kt:arrow-fx
-    versions:
-    - 0.11.0
-    - 0.12.0
-  - dependency-name: io.arrow-kt:arrow-core
-    versions:
-    - 0.11.0
-    - 0.12.0
-  - dependency-name: org.jetbrains.exposed:spring-transaction
-    versions:
-    - 0.17.12
-    - 0.17.8
-    - 0.17.9
-  - dependency-name: org.jetbrains.exposed:exposed
-    versions:
-    - 0.17.12
-    - 0.17.8
-    - 0.17.9
-  - dependency-name: org.jetbrains.kotlin:kotlin-allopen
-    versions:
-    - 1.4.21-2
-    - 1.4.30
-  - dependency-name: org.jetbrains.kotlin:kotlin-gradle-plugin
-    versions:
-    - 1.4.21-2
-    - 1.4.30
-  - dependency-name: org.flywaydb:flyway-core
-    versions:
-    - 7.5.1
-    - 7.5.2
-  - dependency-name: com.ninja-squad:springmockk
-    versions:
-    - 3.0.1
 - package-ecosystem: docker
   directory: "/"
   schedule:
