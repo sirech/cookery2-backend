@@ -11,7 +11,7 @@ import java.nio.charset.Charset
 object Utils
 
 fun String.asStream(): InputStream {
-    return Utils.javaClass.classLoader.getResourceAsStream(this)
+    return Utils.javaClass.classLoader.getResourceAsStream(this)!!
 }
 
 fun InputStream.readTextAndClose(charset: Charset = Charsets.UTF_8): String {
@@ -20,19 +20,8 @@ fun InputStream.readTextAndClose(charset: Charset = Charsets.UTF_8): String {
 
 inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isRight() =
         isA<Either.Right<T>>()
-                .get { b }
+                .get { value }
 
 inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>.isLeft() =
         isA<Either.Left<U>>()
-                .get { a }
-
-inline fun <reified T> Assertion.Builder<IO<T>>.blowsUp() =
-        get { attempt() }
-                .get { unsafeRunSync() }
-                .isA<Either.Left<Throwable>>()
-
-inline fun <reified T> Assertion.Builder<IO<T>>.works() =
-        get { attempt() }
-                .get { unsafeRunSync() }
-                .isA<Either.Right<T>>()
-                .get { b }
+                .get { value }

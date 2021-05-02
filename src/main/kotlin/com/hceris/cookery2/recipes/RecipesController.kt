@@ -38,8 +38,8 @@ class RecipesController(val repository: RecipeRepository) {
                 { repository.create(form) })
 
         return when (result) {
-            is Either.Left -> ResponseEntity.status(result.a).build()
-            is Either.Right -> ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(result.b))
+            is Either.Left -> ResponseEntity.status(result.value).build()
+            is Either.Right -> ResponseEntity.status(HttpStatus.CREATED).body(RecipeCreated(result.value))
         }
     }
 
@@ -61,8 +61,8 @@ class RecipesController(val repository: RecipeRepository) {
             @PathVariable
             id: Int): ResponseEntity<RecipeDetails> {
         return when (val result = repository.find(id)) {
-            is Either.Left -> ResponseEntity.status(result.a).build()
-            is Either.Right -> ResponseEntity.ok(result.b)
+            is Either.Left -> ResponseEntity.status(result.value).build()
+            is Either.Right -> ResponseEntity.ok(result.value)
         }
     }
 }
