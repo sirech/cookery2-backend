@@ -13,7 +13,7 @@ buildscript {
         mockkVersion = '1.11.0'
         springMockkVersion = '3.0.1'
         striktVersion = '0.31.0'
-        detektVersion = '1.16.0'
+        detektVersion = '1.21.0'
     }
     repositories {
         mavenCentral()
