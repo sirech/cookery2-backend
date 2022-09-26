@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk14:jre-14.0.1_7-alpine
+FROM adoptopenjdk/openjdk14:jre-14.0.2_12-alpine
 
 WORKDIR /app
 EXPOSE 4003
