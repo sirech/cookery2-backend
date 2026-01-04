@@ -3,7 +3,7 @@ spring:
     url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
   flyway:
-    locations: classpath:/db/migration
+    locations: classpath:/db/migration/h2
 auth:
   jwks: https://hceris.eu.auth0.com/.well-known/jwks.json
   enabled: false

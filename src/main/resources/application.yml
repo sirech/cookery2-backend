@@ -32,7 +32,7 @@ spring:
     url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
   flyway:
-    locations: classpath:/db/migration,classpath:/db/testdata
+    locations: classpath:/db/migration/h2,classpath:/db/testdata
 
 ---
 
@@ -44,7 +44,7 @@ spring:
     url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
   flyway:
-    locations: classpath:/db/migration,classpath:/db/testdata
+    locations: classpath:/db/migration/h2,classpath:/db/testdata
 auth:
   enabled: false
 pact:
@@ -59,3 +59,5 @@ spring:
   datasource:
     url: jdbc:mysql://db/cookery2_production?createDatabaseIfNotExist=true
     driverClassName: com.mysql.cj.jdbc.Driver
+  flyway:
+    locations: classpath:/db/migration/mysql
