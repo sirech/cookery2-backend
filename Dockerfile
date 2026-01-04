@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk14:jre-14.0.1_7-alpine
+FROM eclipse-temurin:25-jre-alpine-3.23
 
 WORKDIR /app
 EXPOSE 4003

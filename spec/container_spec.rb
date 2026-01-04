@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 describe 'Container' do
   describe file('/etc/alpine-release') do
-    its(:content) { is_expected.to match(/3.12/) }
+    its(:content) { is_expected.to match(/3.23/) }
   end
 
   %i[dumb-init].each do |package|
@@ -17,7 +17,7 @@ describe 'Container' do
 
   describe 'java' do
     describe command('java -version') do
-      its(:stderr) { is_expected.to match(/openjdk.*"14.0/) }
+      its(:stderr) { is_expected.to match(/openjdk.*"25.0/) }
     end
 
     describe process('java') do
@@ -27,7 +27,7 @@ describe 'Container' do
     end
 
     describe 'listens to correct port' do
-      it { wait_for(port(4003)).to be_listening.with('tcp') }
+      it { wait_for { port(4003) }.to be_listening.with('tcp') }
     end
   end
 

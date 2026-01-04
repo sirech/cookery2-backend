@@ -6,7 +6,7 @@ Documentation:
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 RSpec/BeforeAfterAll:
@@ -23,6 +23,10 @@ RSpec/MultipleExpectations:
 
 RSpec/NamedSubject:
   Enabled: false
+
+RSpec/NoExpectationExample:
+  Exclude:
+    - spec/*
 
 Style/FrozenStringLiteralComment:
   Enabled: false

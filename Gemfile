@@ -4,4 +4,4 @@ gem 'docker-api'
 gem 'rspec-wait'
 gem 'rubocop'
 gem 'rubocop-rspec'
-gem 'serverspec'
+gem 'serverspec', require: false

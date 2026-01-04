@@ -117,6 +117,10 @@ compileTestKotlin {
     }
 }
 
+jar {
+    enabled = false
+}
+
 test {
     useJUnitPlatform()
     dependsOn 'cleanTest'
