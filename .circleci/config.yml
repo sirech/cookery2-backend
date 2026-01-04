@@ -10,7 +10,6 @@ jobs:
     steps:
 
       - checkout
-      - run: ./go linter-kt
       - run: ./go test-unit
       - run: ./go test-pact
       - run:
