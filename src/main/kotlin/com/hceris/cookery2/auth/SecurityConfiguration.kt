@@ -1,32 +1,41 @@
 package com.hceris.cookery2.auth
 
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpMethod
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
-class SecurityConfiguration : WebSecurityConfigurerAdapter() {
-    @Autowired
-    lateinit var filter: JwtAuthorizationFilter
+@EnableMethodSecurity(securedEnabled = true)
+@Configuration
+class SecurityConfiguration(
+    private val filter: JwtAuthorizationFilter,
+    @Value("\${auth.enabled:true}") private val authEnabled: Boolean
+) {
 
-    override fun configure(http: HttpSecurity?) {
-        http?.let {
-            it.cors().and()
-                    .csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers(HttpMethod.GET).permitAll()
-                    .antMatchers("/pact").permitAll()
-                    .anyRequest().hasAuthority("create:recipes")
-                    .and()
-                    .addFilterBefore(filter, BasicAuthenticationFilter::class.java)
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    @Bean
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        http.cors { }
+            .csrf { it.disable() }
+
+        if (!authEnabled) {
+            http.authorizeHttpRequests { it.anyRequest().permitAll() }
+            return http.build()
         }
+
+        http.authorizeHttpRequests {
+            it.requestMatchers(HttpMethod.GET, "/**").permitAll()
+                .requestMatchers("/pact").permitAll()
+                .anyRequest().hasAuthority("create:recipes")
+        }
+            .addFilterBefore(filter, BasicAuthenticationFilter::class.java)
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+        return http.build()
     }
 }

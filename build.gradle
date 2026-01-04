@@ -1,23 +1,22 @@
 buildscript {
     ext {
-        kotlinVersion = '1.5.0'
-        springBootVersion = '2.4.5'
+        kotlinVersion = '2.1.21'
+        springBootVersion = '3.4.1'
         jacksonVersion = '2.12.3'
-        swaggerVersion = '3.0.0'
-        exposedVersion = '0.17.13'
+        springdocVersion = '2.6.0'
+        exposedVersion = '0.52.0'
         arrowVersion = '0.12.1'
         jwkSetVersion = '5.1'
         auth0Version = '3.14.0'
-        flywayVersion = '7.8.2'
-        junitVersion = '5.7.1'
+        flywayVersion = '10.17.2'
+        junitVersion = '5.11.3'
         mockkVersion = '1.13.3'
         springMockkVersion = '3.0.1'
         striktVersion = '0.31.0'
-        detektVersion = '1.16.0'
+        detektVersion = '1.23.6'
     }
     repositories {
         mavenCentral()
-        jcenter()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -29,13 +28,14 @@ buildscript {
         classpath "com.github.ben-manes:gradle-versions-plugin:0.38.0"
 
         // Verify pacts from gradle
-        classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.15'
+        classpath 'au.com.dius.pact.provider:gradle:4.6.19'
 
         // Linter
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${detektVersion}"
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
@@ -45,11 +45,14 @@ apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 
 group = 'com.hceris'
-sourceCompatibility = '1.8'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -64,12 +67,15 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.data:spring-data-commons'
-    implementation 'mysql:mysql-connector-java'
+    implementation 'com.mysql:mysql-connector-j'
 
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
 
-    implementation "org.jetbrains.exposed:exposed:$exposedVersion"
-    implementation "org.jetbrains.exposed:spring-transaction:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-core:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-dao:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-jdbc:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-java-time:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-spring-boot-starter:$exposedVersion"
     implementation "org.flywaydb:flyway-core:$flywayVersion"
 
     implementation("com.nimbusds:nimbus-jwkset-loader:$jwkSetVersion")
@@ -78,12 +84,15 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:$arrowVersion")
     implementation("io.arrow-kt:arrow-fx:$arrowVersion")
 
-    implementation "io.springfox:springfox-swagger2:$swaggerVersion"
-    implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation "org.junit.platform:junit-platform-commons:1.11.3"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.11.3"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
@@ -97,14 +106,14 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ['-Xjsr305=strict']
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ['-Xjsr305=strict']
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
@@ -122,12 +131,35 @@ pact {
             port = 4003
 
             hasPactWith('cookery2-frontend') {
-                pactFile = url('https://raw.githubusercontent.com/sirech/cookery2-frontend/master/pacts/frontend-backend.json')
+                pactSource = file("$buildDir/pacts/frontend-backend.json")
                 // pactSource = file('../cookery2-frontend/pacts/frontend-backend.json')
                 stateChangeUrl = url("http://localhost:$port/pact")
             }
         }
     }
+}
+
+def pactFile = file("$buildDir/pacts/frontend-backend.json")
+
+tasks.register('downloadPact') {
+    outputs.file(pactFile)
+    doLast {
+        pactFile.parentFile.mkdirs()
+        new URL('https://raw.githubusercontent.com/sirech/cookery2-frontend/master/pacts/frontend-backend.json')
+            .withInputStream { input ->
+                pactFile.withOutputStream { output ->
+                    output << input
+                }
+            }
+    }
+}
+
+tasks.withType(au.com.dius.pact.provider.gradle.PactVerificationTask).configureEach {
+    dependsOn tasks.named('downloadPact')
+}
+
+tasks.withType(au.com.dius.pact.provider.gradle.PactVerificationTask).configureEach {
+    doNotTrackState("Pact verification tasks are not cacheable and do not declare all inputs.")
 }
 
 

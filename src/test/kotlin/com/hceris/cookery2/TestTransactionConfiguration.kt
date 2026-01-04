@@ -16,7 +16,7 @@ class TestTransactionConfiguration(private val dataSource: DataSource) {
     @Primary
     fun testTransactionManager(): PlatformTransactionManager = object : PlatformTransactionManager by delegate {
         override fun getTransaction(definition: TransactionDefinition?): TransactionStatus {
-            Database.connect(dataSource) { delegate }
+            Database.connect(dataSource)
             return delegate.getTransaction(definition)
         }
     }

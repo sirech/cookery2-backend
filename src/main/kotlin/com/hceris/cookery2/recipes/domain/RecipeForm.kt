@@ -1,29 +1,29 @@
 package com.hceris.cookery2.recipes.domain
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class StepForm(
-        @ApiModelProperty(example = "Boil the pasta")
+        @field:Schema(example = "Boil the pasta")
         val description: String,
-        @ApiModelProperty(example = "5")
+        @field:Schema(example = "5")
         val duration: Int)
 
 data class IngredientForm(
-        @ApiModelProperty(example = "Fresh pasta")
+        @field:Schema(example = "Fresh pasta")
         val name: String,
-        @ApiModelProperty(example = "300")
+        @field:Schema(example = "300")
         val quantity: Int,
-        @ApiModelProperty(example = "gr")
+        @field:Schema(example = "gr")
         val unit: String)
 
 data class RecipeForm(
-        @ApiModelProperty(example = "Pasta carbonara")
+        @field:Schema(example = "Pasta carbonara")
         val name: String,
-        @ApiModelProperty(example = "3")
+        @field:Schema(example = "3")
         val servings: Int,
         val steps: List<StepForm>,
         val ingredients: List<IngredientForm>)
 
 data class RecipeCreated(
-        @ApiModelProperty(example = "1")
+        @field:Schema(example = "1")
         val id: Int)

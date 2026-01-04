@@ -1,14 +1,14 @@
 package com.hceris.cookery2.recipes.presentation
 
 import com.hceris.cookery2.recipes.domain.Ingredient
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class IngredientOverview(
-        @ApiModelProperty(example = "Fresh pasta")
+        @field:Schema(example = "Fresh pasta")
         val name: String,
-        @ApiModelProperty(example = "300")
+        @field:Schema(example = "300")
         val quantity: Int,
-        @ApiModelProperty(example = "gr")
+        @field:Schema(example = "gr")
         val unit: String)
 
 fun Ingredient.asOverview() = IngredientOverview(

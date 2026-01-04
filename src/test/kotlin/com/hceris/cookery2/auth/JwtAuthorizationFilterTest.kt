@@ -19,8 +19,8 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
 import strikt.assertions.isNull
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpServletResponse
 
 @ExtendWith(MockKExtension::class)
 internal class JwtAuthorizationFilterTest {

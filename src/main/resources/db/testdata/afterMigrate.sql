@@ -1,8 +1,14 @@
+DELETE FROM ingredients;
+DELETE FROM steps;
+DELETE FROM recipes;
+
 INSERT INTO recipes(id, name, servings)
 VALUES
 (1, 'Pasta carbonara', 3),
 (2, 'Lentejas', 2),
 (3, 'Pollo al grill', 4);
+
+ALTER TABLE recipes ALTER COLUMN id RESTART WITH 4;
 
 INSERT INTO steps(description, duration, recipe_id)
 VALUES

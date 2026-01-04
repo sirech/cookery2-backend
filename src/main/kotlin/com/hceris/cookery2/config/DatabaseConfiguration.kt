@@ -4,11 +4,13 @@ import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.spring.SpringTransactionManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
 @EnableTransactionManagement
 class DatabaseConfiguration {
     @Bean
+    @Primary
     fun transactionManager(dataSource: HikariDataSource) = SpringTransactionManager(dataSource)
 }

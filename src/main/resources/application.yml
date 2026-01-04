@@ -25,20 +25,24 @@ management:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClasName: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
+    driverClassName: org.h2.Driver
   flyway:
     locations: classpath:/db/migration,classpath:/db/testdata
 
 ---
 
 spring:
-  profiles: pact
+  config:
+    activate:
+      on-profile: pact
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClasName: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
+    driverClassName: org.h2.Driver
   flyway:
     locations: classpath:/db/migration,classpath:/db/testdata
 auth:
@@ -49,7 +53,9 @@ pact:
 ---
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
   datasource:
     url: jdbc:mysql://db/cookery2_production?createDatabaseIfNotExist=true
-    driverClasName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
