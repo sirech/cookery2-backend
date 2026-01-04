@@ -77,6 +77,7 @@ dependencies {
     implementation "org.jetbrains.exposed:exposed-java-time:$exposedVersion"
     implementation "org.jetbrains.exposed:exposed-spring-boot-starter:$exposedVersion"
     implementation "org.flywaydb:flyway-core:$flywayVersion"
+    runtimeOnly "org.flywaydb:flyway-mysql:$flywayVersion"
 
     implementation("com.nimbusds:nimbus-jwkset-loader:$jwkSetVersion")
     implementation("com.auth0:java-jwt:$auth0Version")
