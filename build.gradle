@@ -12,7 +12,7 @@ buildscript {
         junitVersion = '5.11.3'
         mockkVersion = '1.13.3'
         springMockkVersion = '3.0.1'
-        striktVersion = '0.31.0'
+        striktVersion = '0.35.1'
         detektVersion = '1.23.6'
     }
     repositories {
