@@ -11,10 +11,11 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
 import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
-import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -70,23 +71,23 @@ internal class RecipesControllerTest(@Autowired val mockMvc: MockMvc) {
      }   
     """.trimIndent()
 
-    @WithMockUser(username = "dudu", authorities = ["profile", "create:recipes"])
     @Test
     fun `creates recipe`() {
         every { repository.create(any()) } returns 1
 
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/recipes")
+                .with(user("dudu").authorities(SimpleGrantedAuthority("create:recipes")))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isCreated)
     }
 
-    @WithMockUser(username = "dudu", authorities = ["profile", "create:recipes"])
     @Test
     fun `creates throws error if invalid form was sent`() {
         every { repository.create(any()) } returns 1
 
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/recipes")
+                .with(user("dudu").authorities(SimpleGrantedAuthority("create:recipes")))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(invalidJson))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest)
