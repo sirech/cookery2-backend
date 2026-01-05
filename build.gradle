@@ -4,7 +4,7 @@ buildscript {
         springBootVersion = '4.0.1'
         jacksonVersion = '2.12.3'
         springdocVersion = '2.6.0'
-        exposedVersion = '0.52.0'
+        exposedVersion = '0.61.0'
         arrowVersion = '0.12.1'
         jwkSetVersion = '7.3.2'
         auth0Version = '3.14.0'
