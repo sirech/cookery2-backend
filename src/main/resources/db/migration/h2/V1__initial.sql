@@ -4,8 +4,8 @@ create table recipes (
   name varchar(255) not null,
   servings integer not null,
 
-  created_at datetime not null default CURRENT_TIMESTAMP,
-  updated_at datetime not null default CURRENT_TIMESTAMP
+  created_at timestamp not null default CURRENT_TIMESTAMP,
+  updated_at timestamp not null default CURRENT_TIMESTAMP
 );
 
 create table ingredients (
@@ -14,8 +14,8 @@ create table ingredients (
   quantity integer not null,
   unit varchar(8) not null,
 
-  created_at datetime not null default CURRENT_TIMESTAMP,
-  updated_at datetime not null default CURRENT_TIMESTAMP,
+  created_at timestamp not null default CURRENT_TIMESTAMP,
+  updated_at timestamp not null default CURRENT_TIMESTAMP,
 
   recipe_id bigint,
   foreign key (recipe_id) references  recipes (id)
@@ -26,8 +26,8 @@ create table steps (
   description text not null,
   duration integer not null,
 
-  created_at datetime not null default CURRENT_TIMESTAMP,
-  updated_at datetime not null default CURRENT_TIMESTAMP,
+  created_at timestamp not null default CURRENT_TIMESTAMP,
+  updated_at timestamp not null default CURRENT_TIMESTAMP,
 
   recipe_id bigint,
   foreign key (recipe_id) references  recipes (id)

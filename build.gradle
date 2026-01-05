@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '2.1.21'
-        springBootVersion = '3.4.1'
+        springBootVersion = '4.0.1'
         jacksonVersion = '2.12.3'
         springdocVersion = '2.6.0'
         exposedVersion = '0.52.0'
@@ -9,7 +9,7 @@ buildscript {
         jwkSetVersion = '5.1'
         auth0Version = '3.14.0'
         flywayVersion = '10.17.2'
-        junitVersion = '5.11.3'
+        junitVersion = '6.0.1'
         mockkVersion = '1.13.3'
         springMockkVersion = '3.0.1'
         striktVersion = '0.31.0'
@@ -69,6 +69,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-commons'
     implementation 'com.mysql:mysql-connector-j'
 
+    implementation 'org.springframework.boot:spring-boot-flyway'
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
 
     implementation "org.jetbrains.exposed:exposed-core:$exposedVersion"
@@ -90,10 +91,11 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-webmvc-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testImplementation "org.junit.platform:junit-platform-commons:1.11.3"
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.11.3"
+    testImplementation "org.junit.platform:junit-platform-commons:$junitVersion"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
