@@ -2,7 +2,7 @@ buildscript {
     ext {
         kotlinVersion = '2.3.0'
         springBootVersion = '4.0.1'
-        jacksonVersion = '2.20.1'
+        jacksonVersion = '2.21.0'
         springdocVersion = '2.6.0'
         exposedVersion = '0.61.0'
         arrowVersion = '0.12.1'
